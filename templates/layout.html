@@ -1,0 +1,185 @@
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} - Website </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/icofont.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/cardslider.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsiveslides.css')}}">
+
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/overright.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/theme.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <script src="{{url_for('static', filename='js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+    {% endblock %}
+</head>
+
+<body data-spy="scroll" data-target="#mainmenu" data-offset="50">
+
+    {% block header_menu %}
+    <header class="relative" id="sc1">
+        <!-- Header-background-markup -->
+        {% block header_bg %}{% endblock header_bg %}
+        <!-- Mainmenu-markup-start -->
+        <div class="mainmenu-area navbar-fixed-top" data-spy="affix" data-offset-top="10">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <div class="space-10"></div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--Logo-->
+                        <a href="#sc1" class="navbar-left show"><img src="{{url_for('static', filename='images/logo.png')}}" alt="library"></a>
+                        <div class="space-10"></div>
+                    </div>
+                    <!--Toggle-button-->
+    
+                    <!--Active User-->
+                    <div class="nav navbar-right">
+                        <div class="active-user navbar-left active">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="{{url_for('static', filename='images/active_user.png')}}" class="img-circle img-thumbnail" alt="library" />
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#"> <span><i class="icofont icofont-user"></i></span> Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <span><i class="icofont icofont-settings"></i></span> Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <span><i class="icofont icofont-read-book"></i></span>My Books</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <span><i class="icofont icofont-logout"></i></span> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Mainmenu list-->
+                    <div class="navbar-right in fade" id="mainmenu">
+                        <ul class="nav navbar-nav nav-white text-uppercase">
+                            <li class="active">
+                                <a href="#sc1">Home</a>
+                            </li>
+                            <li>
+                                <a href="#sc2">About</a>
+                            </li>
+                            <li>
+                                <a href="#">Books</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="space-100"></div>
+        <!-- Mainmenu-markup-end -->
+        <!-- Header-jumbotron -->
+        <div class="space-100"></div>
+        {% block header_text %}{% endblock header_text %}
+        <div class="space-100"></div>
+        <!-- Header-jumbotron-end -->
+    </header>
+    {% endblock header_menu %}
+    {% block main %}
+
+    {% endblock %}
+    
+    {% block footer %}
+    <footer class="black-bg text-white">
+        <div class="space-60"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <a href="#"><img src="{{url_for('static', filename='images/logo.png')}}" alt="library"></a>
+                    <div class="space-20"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <div class="space-10"></div>
+                    <ul class="list-inline list-unstyled social-list">
+                        <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-social-behance"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-brand-linkedin"></i></a></li>
+                    </ul>
+                    <div class="space-10"></div>
+                    <ul class="list-unstyled list-inline tip yellow">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
+                    <h4 class="text-white">Contact Us</h4>
+                    <div class="space-20"></div>
+                    <table class="table border-none addr-dt">
+                        <tr>
+                            <td><i class="icofont icofont-social-google-map"></i></td>
+                            <td><address>3050 Universal Blvd #190 Fort Lauderdale, FL, 33331, Sydney New York City</address></td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-email"></i></td>
+                            <td>susislibrary@domain.com</td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-phone"></i></td>
+                            <td>+62 582 528 527 21</td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-globe-alt"></i></td>
+                            <td><a href="www.susislibrary.com" target="_blank">www.susislibrary.com</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="space-60"></div>
+    </footer>
+    {% endblock %}
+    <!-- Vandor-JS -->
+    {% block script %}
+    <script src="{{url_for('static', filename='js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/bootstrap.min.js')}}"></script>
+    <!-- Plugin-JS -->
+    <script src="{{url_for('static', filename='js/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/responsiveslides.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.cardslider.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pagination.js')}}"></script>
+    <script src="{{url_for('static', filename='js/scrollUp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/wow.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/plugins.js')}}"></script>
+    <!-- Active-JS -->
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    {%endblock%}
+</body>
+
+</html>
