@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session,render_template, request
+from flask import Flask, session,render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -26,28 +26,47 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if session.get("user") is None:
+        session["user"] = []
+
+    return render_template("index.html", user=session["user"])
 
 # User Methods
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
 
-@app.route("/register")
+    error = ""
+    if request.method == 'POST':
+        email = request.form.get("email")
+        passwd = request.form.get("password")
+        user = db.execute("SELECT * FROM users WHERE email = :email AND password = :passwd", 
+        {"email": email, "passwd": passwd}).fetchone()
+        if user:
+            session["user"].append(user)
+            return redirect(url_for('index'))
+        else:
+            error = "Invalid username/password"
+    
+    return render_template("login.html", error=error)
+
+@app.route("/logout")
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
+@app.route("/register", methods=['POST', 'GET'])
 def register():
-    return render_template('register.html')
-
-@app.route("/register/create", methods=['POST'])
-def create_user():
-    # check if user has been register before
-    email = request.form.get("email")
-    name = request.form.get("name")
-    passwd = request.form.get("password")
-    if db.execute("SELECT id FROM users WHERE email = :email", {"email": email}).rowcount > 0:
-        return render_template("register.html", message="User exist")
-    # register
-    db.execute("INSERT INTO users(name, email, password) VALUES(:name, :email, :password)",
-    {"name": name, "email": email, "password": passwd})
-    db.commit()
-    return render_template("login.html")
+    message = ""
+    if request.method == "POST":
+        email = request.form.get("email")
+        name = request.form.get("name")
+        passwd = request.form.get("password")
+        if db.execute("SELECT id FROM users WHERE email = :email", {"email": email}).rowcount > 0:
+            message = "User Already Exist"
+        else:
+            db.execute("INSERT INTO users(username, email, password) VALUES(:name, :email, :password)",
+            {"name": name, "email": email, "password": passwd})
+            db.commit()
+            return url_for("login")
+    return render_template('register.html', message=message)
    
