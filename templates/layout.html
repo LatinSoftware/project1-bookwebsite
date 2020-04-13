@@ -57,6 +57,7 @@
                     <!--Toggle-button-->
     
                     <!--Active User-->
+                    {%if session.get('user')%}
                     <div class="nav navbar-right">
                         <div class="active-user navbar-left active">
                             <ul class="list-unstyled">
@@ -66,16 +67,13 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#"> <span><i class="icofont icofont-user"></i></span> Profile</a>
+                                            <a href="#"> <span><i class="icofont icofont-user-alt-7"></i></span> Profile</a>
                                         </li>
                                         <li>
                                             <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
                                         </li>
                                         <li>
-                                            <a href="#"> <span><i class="icofont icofont-settings"></i></span> Settings</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> <span><i class="icofont icofont-read-book"></i></span>My Books</a>
+                                            <a href="#"> <span><i class="icofont icofont-book-alt"></i></span>My Books</a>
                                         </li>
                                         <li>
                                             <a href="#"> <span><i class="icofont icofont-logout"></i></span> Log Out</a>
@@ -85,6 +83,7 @@
                             </ul>
                         </div>
                     </div>
+                    {% endif %}
                     <!--Mainmenu list-->
                     <div class="navbar-right in fade" id="mainmenu">
                         <ul class="nav navbar-nav nav-white text-uppercase">
@@ -97,6 +96,11 @@
                             <li>
                                 <a href="#">Books</a>
                             </li>
+                            {%if not session.get('user')%}
+                            <li>
+                                <a href="{{url_for('login')}}">Iniciar Sesion</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
