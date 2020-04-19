@@ -1,0 +1,194 @@
+
+{% extends "layout.html" %}
+{% block title %} Books {% endblock %}
+{% block header_bg %}
+<!-- Header-background-markup -->
+<div class="overlay-bg relative">
+    <img src="{{url_for('static', filename='images/slide/slide1.jpg')}}" alt="">
+</div>
+{% endblock %}
+
+{% block header_text %}
+<div class="header-text">
+    <div class="container">
+        <div class="row wow fadeInUp">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+                <div class="jumbotron">
+                    <h1 class="text-white">Choose Your Book and Enjoy</h1>
+                </div>
+                <div class="title-bar white">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+                <div class="space-40"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block main %}
+<section>
+    <div class="space-80"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 pull-right">
+                <h4>Search Box</h4>
+                <div class="space-5"></div>
+                <form action="{{url_for('search')}}" method="GET" >
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q" placeholder="Enter book name">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="space-30"></div>
+                <div class="row">
+                    <div class="pull-left col-xs-12 col-sm-5 col-md-6">
+                        <p>Result For <a href="" class="text-primary">"How To Be a Designer"</a></p>
+                        <p><strong>6</strong> of <strong>76</strong> Book Found</p>
+                    </div>
+                    <div class="pull-right col-xs-12 col-sm-7 col-md-6">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-4" for="sort">Sont By : </label>
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <select name="sort" id="sort" class="form-control">
+                                            <option value="">Best Match</option>
+                                            <option value="">Best Book</option>
+                                            <option value="">Latest Book</option>
+                                            <option value="">Old Book</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="space-20"></div>
+                <div class="row">
+                    {% for book in books  %}
+                    <div class="col-xs-12 col-md-6">
+                        <div class="category-item well yellow">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="{{url_for('static', filename='images/book/book-xs-1.jpg')}}" class="media-object" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h5>{{book.title}}</h5>
+                                    <h6>{{book.author}}</h6>
+                                    <div class="space-10"></div>
+                                    <ul class="list-inline list-unstyled rating-star">
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li><i class="icofont icofont-star"></i></li>
+                                    </ul>
+                                    <div class="space-10"></div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+                                    <a href="{{url_for('book', book_id=book.id)}}" class="text-primary">See the Book</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+
+                        {% for b in all_b  %}
+                        <div class="col-xs-12 col-md-6">
+                            <div class="category-item well yellow">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="{{url_for('static', filename='images/book/book-xs-1.jpg')}}" class="media-object" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <h5>{{b.title}}</h5>
+                                        <h6>{{b.author}}</h6>
+                                        <div class="space-10"></div>
+                                        <ul class="list-inline list-unstyled rating-star">
+                                            <li class="active"><i class="icofont icofont-star"></i></li>
+                                            <li class="active"><i class="icofont icofont-star"></i></li>
+                                            <li class="active"><i class="icofont icofont-star"></i></li>
+                                            <li class="active"><i class="icofont icofont-star"></i></li>
+                                            <li><i class="icofont icofont-star"></i></li>
+                                        </ul>
+                                        <div class="space-10"></div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+                                        <a href="{{url_for('book', book_id=b.id)}}" class="text-primary">See the Book</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+
+                        <div class="col-xs-12 col-md-6">
+                            <h2>Nothing Found</h2>
+                        </div>
+                        {% endfor %}
+
+                    {% endfor %}
+                </div>
+                <div class="space-60"></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="shop-pagination pull-right">
+                            <ul id="pagination-demo" class="pagination-sm pagination">
+                                <li class="page-item first"><a href="#" class="page-link">First</a></li>
+                                <li class="page-item prev"><a href="#" class="page-link">Previous</a></li>
+                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                <li class="page-item"><a href="#" class="page-link">6</a></li>
+                                <li class="page-item"><a href="#" class="page-link">7</a></li>
+                                <li class="page-item next"><a href="#" class="page-link">Next</a></li>
+                                <li class="page-item last"><a href="#" class="page-link">Last</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar-Start -->
+            <div class="col-xs-12 col-md-2">
+                <aside>
+                    <h3><i class="icofont icofont-filter"></i> Filter By</h3>
+                    <div class="space-30"></div>
+                    <div class="sigle-sidebar">
+                        <h4>Category</h4>
+                        <hr>
+                        <ul class="list-unstyled menu-tip">
+                            <li><a href="#">Music</a></li>
+                            <li><a href="#">Marketing</a></li>
+                            <li><a href="#">Politics</a></li>
+                            <li><a href="#">Creative</a></li>
+                            <li><a href="#">Methematics</a></li>
+                            <li><a href="#">Geography</a></li>
+                            <li><a href="#">Technology</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-primary btn-xs">See All</a>
+                    </div>
+                    <div class="space-20"></div>
+                    <div class="sigle-sidebar">
+                        <h4>Rating</h4>
+                        <hr>
+                        <ul class="list-inline list-unstyled rating-star">
+                            <li class="active"><i class="icofont icofont-star"></i></li>
+                            <li class="active"><i class="icofont icofont-star"></i></li>
+                            <li class="active"><i class="icofont icofont-star"></i></li>
+                            <li class="active"><i class="icofont icofont-star"></i></li>
+                            <li class="active"><i class="icofont icofont-star"></i></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <!-- Sidebar-End -->
+        </div>
+    </div>
+    <div class="space-80"></div>
+</section>
+{% endblock %}
