@@ -70,3 +70,22 @@ def register():
             return url_for("login")
     return render_template('register.html', message=message)
    
+@app.route("/books")
+def books():
+    books = db.execute("SELECT id, title, author FROM books LIMIT 10")
+    return render_template('books.html', all_b=books)
+
+@app.route("/books/<int:book_id>")
+def book(book_id):
+    book = db.execute("SELECT * FROM books WHERE id = :id", {'id': book_id}).fetchone()
+    if book:
+        return render_template("book.html", book = book)
+    else:
+        return "404 no found"
+@app.route("/books/search", methods=["GET"])
+def search():
+    q = request.args.get("q")
+    books = db.execute("SELECT id, title, author FROM books WHERE title LIKE '%:data:%' or author LIKE '%:data:%' or isbn LIKE '%:data:%'",
+    {"data": q}).fetchall()
+    print(books)
+    return render_template('books.html', books=books)
