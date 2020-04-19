@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+{% block title %} bookname {% endblock %}
+{% block header_bg %}
+<!-- Header-background-markup -->
+<div class="overlay-bg relative">
+    <img src="{{url_for('static', filename='images/slide/slide1.jpg')}}" alt="">
+</div>
+{% endblock %}
+
+{% block header_text %}
+<div class="header-text">
+    <div class="container">
+        <div class="row wow fadeInUp">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+                <div class="jumbotron">
+                    <h1 class="text-white">{{book.title}}</h1>
+                </div>
+                <div class="title-bar white">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+                <div class="space-40"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block main %}
+<section>
+    <!-- <div class="space-30"></div> -->
+    <section class="relative fix">
+        <div class="overlay-bg blue">
+            <img src="{{url_for('static', filename='images/blur-bg.jpg')}}" alt="library">
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 book-list-position padding60  ">
+                    <div class="book-list-photo">
+                        <div class="book-list">
+                            <div class="book_item">
+                                <img src="{{url_for('static', filename='images/book/book1.jpg')}}" alt="library">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 pull-right col-md-6 padding60 gray-bg fadeInRight">
+                    <div class="space-60"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <h2>Popular <strong>Books</strong></h2>
+                            <div class="space-10"></div>
+                            <div class="title-bar left blue">
+                                <ul class="list-inline list-unstyled">
+                                    <li><i class="icofont icofont-square"></i></li>
+                                    <li><i class="icofont icofont-square"></i></li>
+                                </ul>
+                            </div>
+                            <div class="space-20"></div>
+                        </div>
+                    </div>
+                    <div class="space-20"></div>
+                    <div class="book-content">
+                        <div>
+                            <div class="book-details-item">
+                                <h4 class="tip-left">Title</h4>
+                                <p class="lead">{{book.title}}</p>
+                                <div class="space-10"></div>
+                                <h4 class="tip-left">Isbm</h4>
+                                <p class="lead">{{book.isbn}}</p>
+                                <div class="space-10"></div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8">
+                                        <h4 class="tip-left">Author</h4>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="{{url_for('static', filename='images/author.jpg')}}"
+                                                    class="media-object author-photo img-thumbnail" alt="library">
+                                            </div>
+                                            <div class="media-body">
+                                                <h5>{{book.author}}</h5>
+                                                <p>23 Books Created</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <h4>Page</h4>
+                                        <p>320 pages</p>
+                                    </div>
+                                </div>
+                                <div class="space-30"></div>
+                                <h4 class="tip-left">Description</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla libero dui, pretium
+                                    non tincidunt eget, mattis eu nunc. Aenean egestas nisi vel urna tempus aliquam.
+                                    Etiam fringilla tempor risus. Nulla vitae elementum felis. Vestibulum ultricies
+                                    feugiat est id ornare. Morbi non dapibus ante.</p>
+                                <div class="space-20"></div>
+                                <h4 class="tip-left">Rating</h4>
+                                <ul class="list-inline list-unstyled rating-star">
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class=""><i class="icofont icofont-star"></i></li>
+                                    <li><i class="icofont icofont-star"></i></li>
+                                </ul>
+                                <div class="space-20"></div>
+                                <h4 class="tip-left">Rating Goodreads</h4>
+                                <ul class="list-inline list-unstyled rating-star">
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    <li class=""><i class="icofont icofont-star"></i></li>
+                                    <li><i class="icofont icofont-star"></i></li>
+                                </ul>
+                                <div class="space-20"></div>
+                                <h4 class="tip-left">My Rate</h4>
+                                <a href="#" id="comment_submit">Rate This</a>
+                                <div id="rating_comment">
+                                    <div class="rating light" id="rate1"></div>
+                                    <div class="row ">
+                                        <div class="col-sm-2">
+                                            <div class="thumbnail">
+                                                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div>
+                                                <textarea maxlength="12000" name="comment_form" placeholder="Optional" id="comment_form" style="margin-top: 0px; margin-bottom: 0px; height: 40px; min-width: 340px; max-width: 340px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-60"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="space-30"></div>
+</section>
+<!-- Comments -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+
+            <div class="col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                        <div class="text-right">
+                            <ul class="list-inline list-unstyled rating-star">
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class=""><i class="icofont icofont-star"></i></li>
+                                <li><i class="icofont icofont-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+</section>
+
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-glow/all.min.css" />
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            initializeRatings();
+            var rating_comment = $("#rating_comment")
+            rating_comment.hide()
+            $("#comment_submit").click(function(e){
+                e.preventDefault()
+                if(rating_comment.is(":hidden")){
+                    rating_comment.show()
+                }else{
+                    rating_comment.hide()
+                }
+                
+            })
+        })
+        
+    
+        function initializeRatings() {
+            $('#rate1').shieldRating({
+                max: 5,
+                step: 1,
+                value: 3,
+                markPreset: false
+            });
+        }
+    </script>
+{% endblock %}
