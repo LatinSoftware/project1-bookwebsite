@@ -79,7 +79,18 @@ def books():
 def book(book_id):
     book = db.execute("SELECT * FROM books WHERE id = :id", {'id': book_id}).fetchone()
     if book:
-        return render_template("book.html", book = book)
+        reviews = db.execute("SELECT t2.username, t1.score, t1.comment FROM book_reviews as t1 INNER JOIN users as t2 ON t1.user_id = t2.id and t1.book_id = :book_id", 
+        {"book_id": book_id})
+
+        user_review = db.execute("SELECT id, score FROM book_reviews WHERE user_id = :user_id AND book_id = :book_id", 
+        {"book_id": book_id, "user_id": session.get('user')[0]['id']}).fetchone()
+
+        avg_score = db.execute("SELECT AVG(score) as score FROM book_reviews WHERE book_id = :book_id", {"book_id": book_id}).fetchone()
+        if avg_score.score:
+            avg_score = int(avg_score.score)
+        else:
+            avg_score = 0
+        return render_template("book.html", book=book, reviews=reviews, user_review=user_review, avg_score=avg_score)
     else:
         return "404 no found"
 @app.route("/books/search", methods=["GET"])
@@ -89,3 +100,23 @@ def search():
     {"data": q}).fetchall()
     print(books)
     return render_template('books.html', books=books)
+
+
+@app.route('/book/comment/create', methods=['POST'])
+def createComment():
+    score = request.form.get('score')
+    comment = request.form.get('comment')
+    user_id = session.get('user')[0]['id']
+    book_id = request.form.get('book_id')
+    
+    db.execute("INSERT INTO book_reviews(book_id,user_id,score,comment) VALUES(:book_id, :user_id, :score, :comment)",
+    {
+        'book_id': book_id,
+        'user_id': user_id,
+        'score': score,
+        'comment': comment
+    })
+    if db.commit():
+        return "True"
+    else:
+        return "False"

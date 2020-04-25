@@ -98,11 +98,13 @@
                                 <div class="space-20"></div>
                                 <h4 class="tip-left">Rating</h4>
                                 <ul class="list-inline list-unstyled rating-star">
-                                    <li class="active"><i class="icofont icofont-star"></i></li>
-                                    <li class="active"><i class="icofont icofont-star"></i></li>
-                                    <li class="active"><i class="icofont icofont-star"></i></li>
-                                    <li class=""><i class="icofont icofont-star"></i></li>
-                                    <li><i class="icofont icofont-star"></i></li>
+                                    {% for n in range(5) %}
+                                        {% if avg_score >= 1 and n <= avg_score %}
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        {% else %}
+                                        <li><i class="icofont icofont-star"></i></li>
+                                        {% endif %}
+                                    {% endfor %}
                                 </ul>
                                 <div class="space-20"></div>
                                 <h4 class="tip-left">Rating Goodreads</h4>
@@ -115,6 +117,7 @@
                                 </ul>
                                 <div class="space-20"></div>
                                 <h4 class="tip-left">My Rate</h4>
+                                {% if not user_review %}
                                 <a href="#" id="comment_submit">Rate This</a>
                                 <div id="rating_comment">
                                     <div class="rating light" id="rate1"></div>
@@ -128,9 +131,22 @@
                                             <div>
                                                 <textarea maxlength="12000" name="comment_form" placeholder="Optional" id="comment_form" style="margin-top: 0px; margin-bottom: 0px; height: 40px; min-width: 340px; max-width: 340px;"></textarea>
                                             </div>
+                                            <input type="hidden" name="book_id" id="book_id" value="{{book.id}}">
                                         </div>
+                                        <button id="send">Comentar</button>
                                     </div>
                                 </div>
+                                {% else %}
+                                <ul class="list-inline list-unstyled rating-star">
+                                    {% for n in range(5) %}
+                                        {% if n <= user_review.score %}
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        {% else %}
+                                        <li><i class="icofont icofont-star"></i></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 <div class="space-20"></div>
                             </div>
                         </div>
@@ -145,6 +161,7 @@
 <!-- Comments -->
 <section>
     <div class="container">
+        {% for review in reviews %}
         <div class="row">
             <div class="col-sm-1">
                 <div class="thumbnail">
@@ -155,23 +172,28 @@
             <div class="col-sm-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                        <strong>{{review.username}}</strong> <span class="text-muted">commented 5 days ago</span>
                         <div class="text-right">
                             <ul class="list-inline list-unstyled rating-star">
-                                <li class="active"><i class="icofont icofont-star"></i></li>
-                                <li class="active"><i class="icofont icofont-star"></i></li>
-                                <li class="active"><i class="icofont icofont-star"></i></li>
-                                <li class=""><i class="icofont icofont-star"></i></li>
-                                <li><i class="icofont icofont-star"></i></li>
+                                {% for n in range(5) %}
+                                    {% if n <= review.score %}
+                                    <li class="active"><i class="icofont icofont-star"></i></li>
+                                    {% else %}
+                                    <li><i class="icofont icofont-star"></i></li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="panel-body">
-                        Panel content
+                        {{ review.comment }}
                     </div><!-- /panel-body -->
                 </div><!-- /panel panel-default -->
             </div><!-- /col-sm-5 -->
         </div><!-- /row -->
+        {%else%}
+            <h2 class="text-center">No hay reviews para este libro</h2>
+        {% endfor %}
 
     </div><!-- /container -->
 </section>
@@ -196,16 +218,43 @@
                 }
                 
             })
+
+            $("#send").click(function(){
+                let score = $('#rate1').swidget().value()
+                let comment = $('#comment_form').val()
+                if(score == 0)
+                    console.log("Votar el rating es obligatorio")
+                else
+                    book_id = $("#book_id").val()
+                    submitComment(score, book_id, comment)
+            })
         })
         
-    
         function initializeRatings() {
             $('#rate1').shieldRating({
                 max: 5,
                 step: 1,
-                value: 3,
-                markPreset: false
+                value: 0,
+                markPreset: false,
             });
+        }
+
+        function submitComment(score, book_id, comment=null){
+            $.ajax({
+                url: "/book/comment/create",
+                method: "post",
+                data: {
+                    "comment": comment, 
+                    "score": score,
+                    "book_id": book_id,
+                },
+                success: (dato) => {
+                    if (dato === "True")
+                        console.log("hubo un error")
+                    else
+                        location.reload()
+                }
+            })
         }
     </script>
 {% endblock %}
